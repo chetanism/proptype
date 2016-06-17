@@ -200,6 +200,7 @@ const type = proptype.fromJson({
 
 type.validate({ optionalNumber: 2, requiredString: 'abc' }); // => null
 type.validate({ optionalNumber: 2 }); // => Error
+```
 
 ### Adding Types
 You can define you own custom types as:
