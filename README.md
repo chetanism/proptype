@@ -118,21 +118,21 @@ err = requiredType.validate('abc'); // => Error instance
 
 ### Supported Type Classes
 Following type classes are exported:
-  a. AnyType
-  b. ArrayType
-  c. BoolType
-  d. FuncType
-  e. NumberType
-  f. ObjectType
-  g. StringType
-  h. SymbolType
-  i. ArrayOfType
-  j. CustomType
-  k. InstanceOfType
-  l. ObjectOfType
-  m. OneOfType
-  n. OneOfTypeType
-  o. ShapeType
+- AnyType
+- ArrayType
+- BoolType
+- FuncType
+- NumberType
+- ObjectType
+- StringType
+- SymbolType
+- ArrayOfType
+- CustomType
+- InstanceOfType
+- ObjectOfType
+- OneOfType
+- OneOfTypeType
+- ShapeType
   
 You can import them as:
 
