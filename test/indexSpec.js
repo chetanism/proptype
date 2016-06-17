@@ -126,7 +126,7 @@ describe('index', function () {
     expect(shape.isRequired).to.be.an.instanceof(ShapeType);
     expect(shape.isRequired.required()).to.be.true;
   });
-  
+
   it('exports factory as PropType', function () {
     expect(PropType).to.be.an.instanceof(TypeFactory);
     const typeCount1 = Object.keys(PropType.types).length;

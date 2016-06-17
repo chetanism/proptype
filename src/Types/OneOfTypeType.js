@@ -60,7 +60,7 @@ class OneOfTypeType extends AnyType {
     return {
       type: OneOfTypeType.TYPE_NAME,
       required: this.required(),
-      oneOfType: this.oneOfType.map(type => type.toJson())
+      oneOfType: this.oneOfType.map(type => type.toJson()),
     };
   }
 }

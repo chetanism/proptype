@@ -75,13 +75,13 @@ describe('ArrayOfType', function () {
       expect(err).to.be.an.instanceof(Error);
     });
   });
-  
+
   describe('#toJson', function () {
     const arrayOfType = new ArrayOfType(
       new NumberType,
       true
     );
-    
+
     const typeJson = arrayOfType.toJson();
     expect(typeJson).to.be.eql({
       type: 'arrayOf',

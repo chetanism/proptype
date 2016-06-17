@@ -87,7 +87,7 @@ describe('OneOfTypeType', function () {
         oneOfType: [{
           type: 'number',
           required: true,
-        }]
+        }],
       });
     });
   });
@@ -100,7 +100,7 @@ describe('OneOfTypeType', function () {
         oneOfType: [{
           type: 'number',
           required: true,
-        }]
+        }],
       });
 
       expect(type).to.be.an.instanceof(OneOfTypeType);

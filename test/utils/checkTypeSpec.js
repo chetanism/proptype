@@ -23,5 +23,5 @@ describe('checkType', function () {
     expect(noType).to.not.throw(Error);
     expect(typeNotSame).to.throw(Error);
     expect(typeSame).to.not.throw(Error);
-  })
+  });
 });

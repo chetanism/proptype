@@ -51,7 +51,7 @@ class ArrayOfType extends ArrayType {
     return {
       type: ArrayOfType.TYPE_NAME,
       required: this.valueIsRequired,
-      arrayOf: this.arrayOf.toJson()
+      arrayOf: this.arrayOf.toJson(),
     };
   }
 }

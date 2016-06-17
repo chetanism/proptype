@@ -16,7 +16,7 @@ class DummyType extends NumberType {
   toJson() {
     const superJson = super.toJson();
     const thisJson = {
-      type: DummyType.TYPE_NAME
+      type: DummyType.TYPE_NAME,
     };
     return { ...superJson, ...thisJson };
   }

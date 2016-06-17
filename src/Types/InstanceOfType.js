@@ -3,7 +3,6 @@
  */
 
 import AnyType from './AnyType';
-import checkType from '../utils/checkType';
 
 // import _debug from 'debug';
 // const debug = _debug('InstanceOfType');

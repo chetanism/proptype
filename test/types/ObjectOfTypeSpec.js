@@ -83,7 +83,7 @@ describe('ObjectOfType', function () {
         objectOf: {
           type: 'number',
           required: true,
-        }
+        },
       });
     });
   });
@@ -96,7 +96,7 @@ describe('ObjectOfType', function () {
         objectOf: {
           type: 'number',
           required: true,
-        }
+        },
       });
 
       expect(type).to.be.an.instanceof(ObjectOfType);

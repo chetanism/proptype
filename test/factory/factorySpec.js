@@ -14,6 +14,7 @@ import StringType from '../../src/types/StringType';
 import SymbolType from '../../src/types/SymbolType';
 
 import ArrayOfType from '../../src/types/ArrayOfType';
+import CustomType from '../../src/types/CustomType';
 import InstanceOfType from '../../src/types/InstanceOfType';
 import ObjectOfType from '../../src/types/ObjectOfType';
 import OneOfType from '../../src/types/OneOfType';
@@ -26,18 +27,18 @@ describe('factory', function () {
   it('registers primitive types correctly', function () {
     const primitiveTypes = [
       AnyType, ArrayType, BoolType, FuncType, NumberType, ObjectType,
-      StringType, SymbolType
+      StringType, SymbolType,
     ];
 
     primitiveTypes.forEach((Type) => {
       expect(factory.propTypes[Type.TYPE_NAME]).to.be.an.instanceof(Type);
       expect(factory.types[Type.TYPE_NAME]).to.be.equal(Type);
-    })
+    });
   });
 
   it('registers complex types correctly', function () {
-    const complexTypes = [ArrayOfType, InstanceOfType, ObjectOfType,
-      OneOfType, OneOfTypeType, ShapeType
+    const complexTypes = [ArrayOfType, CustomType, InstanceOfType, ObjectOfType,
+      OneOfType, OneOfTypeType, ShapeType,
     ];
 
     complexTypes.forEach((Type) => {

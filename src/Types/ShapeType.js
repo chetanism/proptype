@@ -11,7 +11,7 @@ import mapObject from '../utils/mapObject';
 
 class ShapeType extends ObjectType {
   static TYPE_NAME = 'shape';
-  
+
   static fromJson(obj) {
     checkType(obj.type, ShapeType);
     return new ShapeType(
@@ -19,7 +19,7 @@ class ShapeType extends ObjectType {
       obj.required
     );
   }
-  
+
   shape = null;
 
   constructor(shape, required = false) {

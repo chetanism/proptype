@@ -10,7 +10,7 @@ class FuncType extends PrimitiveType {
   static fromJson(obj) {
     return PrimitiveType.primitiveFromJson(obj, FuncType);
   }
-  
+
   constructor(required = false) {
     super('function', required);
   }

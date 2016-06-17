@@ -14,6 +14,7 @@ import StringType from '../types/StringType';
 import SymbolType from '../types/SymbolType';
 
 import ArrayOfType from '../types/ArrayOfType';
+import CustomType from '../types/CustomType';
 import InstanceOfType from '../types/InstanceOfType';
 import ObjectOfType from '../types/ObjectOfType';
 import OneOfType from '../types/OneOfType';
@@ -34,6 +35,7 @@ factory.register(StringType, true);
 factory.register(SymbolType, true);
 
 factory.register(ArrayOfType);
+factory.register(CustomType);
 factory.register(InstanceOfType);
 factory.register(ObjectOfType);
 factory.register(OneOfType);

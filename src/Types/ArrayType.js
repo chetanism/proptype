@@ -9,7 +9,7 @@ class ArrayType extends PrimitiveType {
   static TYPE_NAME = 'array';
 
   static fromJson(obj) {
-    return PrimitiveType.primitiveFromJson(obj, ArrayType);  
+    return PrimitiveType.primitiveFromJson(obj, ArrayType);
   }
 
   constructor(required = false) {

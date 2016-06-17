@@ -6,7 +6,7 @@ import checkType from '../utils/checkType';
 
 class AnyType {
   static TYPE_NAME = 'any';
-  
+
   static fromJson(obj) {
     checkType(obj.type, AnyType);
     return new AnyType(obj.required);
