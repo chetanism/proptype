@@ -4,6 +4,7 @@
 
 import '../test-helper/testUtil';
 import OneOfTypeType from '../../src/types/OneOfTypeType';
+import NumberType from '../../src/types/NumberType';
 import DummyType from '../test-helper/DummyType';
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -72,6 +73,41 @@ describe('OneOfTypeType', function () {
       const value = 1;
       const err = oneOfTypeType.validate(value);
       expect(err).to.not.exist;
+    });
+  });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new OneOfTypeType([new NumberType(true)], true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'oneOfType',
+        required: true,
+        oneOfType: [{
+          type: 'number',
+          required: true,
+        }]
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = OneOfTypeType.fromJson({
+        type: 'oneOfType',
+        required: true,
+        oneOfType: [{
+          type: 'number',
+          required: true,
+        }]
+      });
+
+      expect(type).to.be.an.instanceof(OneOfTypeType);
+      expect(type.required()).to.be.true;
+      expect(type.oneOfType).to.be.an('array');
+      expect(type.oneOfType[0]).to.be.an.instanceof(NumberType);
+      expect(type.oneOfType[0].required()).to.be.true;
     });
   });
 });

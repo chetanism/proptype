@@ -42,4 +42,30 @@ describe('AnyType', function () {
       expect(validErr).to.not.exist;
     });
   });
+
+  describe('#fromJson', function () {
+    const obj = { type: 'any', required: true };
+    let type = AnyType.fromJson(obj);
+    expect(type).to.be.an.instanceof(AnyType);
+
+    obj.type = null;
+    type = AnyType.fromJson(obj);
+    expect(type).to.be.an.instanceof(AnyType);
+
+    function invalidType() {
+      obj.type = 'array';
+      AnyType.fromJson(obj);
+    }
+
+    expect(invalidType).to.throw(Error);
+  });
+
+  describe('#toJson', function () {
+    const type1 = new AnyType();
+
+    expect(type1.toJson()).to.be.eql({
+      type: AnyType.TYPE_NAME,
+      required: false,
+    });
+  });
 });

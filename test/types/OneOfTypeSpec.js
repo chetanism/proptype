@@ -56,4 +56,31 @@ describe('OneOfType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new OneOfType([1, 'two'], true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'oneOf',
+        required: true,
+        oneOf: [1, 'two'],
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = OneOfType.fromJson({
+        type: 'oneOf',
+        required: true,
+        oneOf: [1, 'two'],
+      });
+
+      expect(type).to.be.an.instanceof(OneOfType);
+      expect(type.required()).to.be.true;
+      expect(type.oneOf).to.be.eql([1, 'two']);
+    });
+  });
 });

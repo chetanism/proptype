@@ -4,8 +4,16 @@
 
 import AnyType from './AnyType';
 import is from '../utils/is';
+import checkType from '../utils/checkType';
 
 class OneOfType extends AnyType {
+  static TYPE_NAME = 'oneOf';
+
+  static fromJson(obj) {
+    checkType(obj.type, OneOfType);
+    return new OneOfType(obj.oneOf, obj.required);
+  }
+
   oneOf = [];
 
   constructor(oneOf, required = false) {
@@ -40,6 +48,14 @@ class OneOfType extends AnyType {
       `Ivalid value ${value} given. ` +
       `Expected one of ${JSON.stringify(this.oneOf)}`
     );
+  }
+
+  toJson() {
+    return {
+      type: OneOfType.TYPE_NAME,
+      required: this.required(),
+      oneOf: this.oneOf,
+    };
   }
 }
 

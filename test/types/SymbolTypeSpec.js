@@ -45,4 +45,28 @@ describe('SymbolType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new SymbolType(true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'symbol',
+        required: true,
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = SymbolType.fromJson({
+        type: 'symbol',
+        required: true,
+      });
+
+      expect(type).to.be.an.instanceof(SymbolType);
+      expect(type.required()).to.be.true;
+    });
+  });
 });

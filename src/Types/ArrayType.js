@@ -4,9 +4,16 @@
 
 import PrimitiveType from './PrimitiveType';
 
+
 class ArrayType extends PrimitiveType {
+  static TYPE_NAME = 'array';
+
+  static fromJson(obj) {
+    return PrimitiveType.primitiveFromJson(obj, ArrayType);  
+  }
+
   constructor(required = false) {
-    super('array', required);
+    super(ArrayType.TYPE_NAME, required);
   }
 }
 

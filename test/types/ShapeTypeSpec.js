@@ -4,6 +4,7 @@
 
 import '../test-helper/testUtil';
 import ShapeType from '../../src/types/ShapeType';
+import NumberType from '../../src/types/NumberType';
 import DummyType from '../test-helper/DummyType';
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -82,6 +83,61 @@ describe('ShapeType', function () {
       const value = { a: 1, b: 2, c: 3 };
       const err = shapeType.validate(value);
       expect(err).to.not.exist;
+    });
+  });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new ShapeType({
+        a: new NumberType(),
+        b: new NumberType(true),
+      }, true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'shape',
+        required: true,
+        shape: {
+          a: {
+            type: 'number',
+            required: false,
+          },
+          b: {
+            type: 'number',
+            required: true,
+          },
+        },
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = ShapeType.fromJson({
+        type: 'shape',
+        required: true,
+        shape: {
+          a: {
+            type: 'number',
+            required: false,
+          },
+          b: {
+            type: 'number',
+            required: true,
+          },
+        },
+      });
+
+      expect(type).to.be.an.instanceof(ShapeType);
+      expect(type.required()).to.be.true;
+
+      expect(type.shape).to.be.an('object');
+
+      expect(type.shape.a).to.be.an.instanceof(NumberType);
+      expect(type.shape.a.required()).to.be.false;
+
+      expect(type.shape.b).to.be.an.instanceof(NumberType);
+      expect(type.shape.b.required()).to.be.true;
     });
   });
 });

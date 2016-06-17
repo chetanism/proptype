@@ -45,4 +45,28 @@ describe('NumberType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new NumberType(true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'number',
+        required: true,
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = NumberType.fromJson({
+        type: 'number',
+        required: true,
+      });
+
+      expect(type).to.be.an.instanceof(NumberType);
+      expect(type.required()).to.be.true;
+    });
+  });
 });

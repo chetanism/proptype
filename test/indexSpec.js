@@ -2,7 +2,7 @@
  * Created by chetanv on 14/06/16.
  */
 
-import {
+import PropType, {
   PropTypes,
   AnyType,
   ArrayType,
@@ -36,6 +36,8 @@ import StringType2 from '../src/types/StringType';
 import SymbolType2 from '../src/types/SymbolType';
 
 import DummyClass from './test-helper/DummyClass';
+
+import TypeFactory from '../src/factory/TypeFactory';
 
 import { expect } from 'chai';
 
@@ -123,5 +125,14 @@ describe('index', function () {
     expect(shape.required()).to.be.false;
     expect(shape.isRequired).to.be.an.instanceof(ShapeType);
     expect(shape.isRequired.required()).to.be.true;
+  });
+  
+  it('exports factory as PropType', function () {
+    expect(PropType).to.be.an.instanceof(TypeFactory);
+    const typeCount1 = Object.keys(PropType.types).length;
+    const typeCount2 = Object.keys(PropType.propTypes).length;
+
+    expect(typeCount1).to.be.equal(typeCount2);
+    expect(typeCount1).to.be.greaterThan(0);
   });
 });

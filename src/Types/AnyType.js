@@ -2,7 +2,16 @@
  * Created by chetanv on 10/06/16.
  */
 
+import checkType from '../utils/checkType';
+
 class AnyType {
+  static TYPE_NAME = 'any';
+  
+  static fromJson(obj) {
+    checkType(obj.type, AnyType);
+    return new AnyType(obj.required);
+  }
+
   valueIsRequired = false;
 
   constructor(required = false) {
@@ -19,6 +28,13 @@ class AnyType {
 
   required() {
     return this.valueIsRequired;
+  }
+
+  toJson() {
+    return {
+      type: AnyType.TYPE_NAME,
+      required: this.valueIsRequired,
+    };
   }
 }
 

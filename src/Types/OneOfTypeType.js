@@ -3,8 +3,19 @@
  */
 
 import AnyType from './AnyType';
+import factory from '../factory/factory';
+import checkType from '../utils/checkType';
 
 class OneOfTypeType extends AnyType {
+  static TYPE_NAME = 'oneOfType';
+
+  static fromJson(obj) {
+    checkType(obj.type, OneOfTypeType);
+    return new OneOfTypeType(
+      obj.oneOfType.map(typeJson => factory.fromJson(typeJson)),
+      obj.required,
+    );
+  }
 
   oneOfType = null;
 
@@ -43,6 +54,14 @@ class OneOfTypeType extends AnyType {
     }
 
     return new Error('Invalid value supplied');
+  }
+
+  toJson() {
+    return {
+      type: OneOfTypeType.TYPE_NAME,
+      required: this.required(),
+      oneOfType: this.oneOfType.map(type => type.toJson())
+    };
   }
 }
 

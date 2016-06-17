@@ -45,4 +45,28 @@ describe('BoolType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new BoolType(true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'bool',
+        required: true,
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = BoolType.fromJson({
+        type: 'bool',
+        required: true,
+      });
+
+      expect(type).to.be.an.instanceof(BoolType);
+      expect(type.required()).to.be.true;
+    });
+  });
 });

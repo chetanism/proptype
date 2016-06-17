@@ -5,8 +5,14 @@
 import AnyType from './AnyType';
 import getPropType from '../utils/getPropType';
 import getPreciseType from '../utils/getPreciseType';
+import checkType from '../utils/checkType';
 
 class PrimitiveType extends AnyType {
+  static primitiveFromJson(obj, Type) {
+    checkType(obj.type, Type);
+    return new Type(obj.required);
+  }
+
   type = null;
 
   constructor(type, required = false) {
@@ -32,6 +38,13 @@ class PrimitiveType extends AnyType {
     }
 
     return err;
+  }
+
+  toJson() {
+    return {
+      type: this.type,
+      required: this.valueIsRequired,
+    };
   }
 }
 

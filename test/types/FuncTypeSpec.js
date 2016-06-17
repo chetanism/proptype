@@ -45,4 +45,28 @@ describe('FuncType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new FuncType(true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'func',
+        required: true,
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = FuncType.fromJson({
+        type: 'func',
+        required: true,
+      });
+
+      expect(type).to.be.an.instanceof(FuncType);
+      expect(type.required()).to.be.true;
+    });
+  });
 });

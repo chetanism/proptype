@@ -45,4 +45,28 @@ describe('ObjectType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new ObjectType(true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'object',
+        required: true,
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = ObjectType.fromJson({
+        type: 'object',
+        required: true,
+      });
+
+      expect(type).to.be.an.instanceof(ObjectType);
+      expect(type.required()).to.be.true;
+    });
+  });
 });

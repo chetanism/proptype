@@ -5,8 +5,21 @@
 import ObjectType from './ObjectType';
 import AnyType from './AnyType';
 import getPropType from '../utils/getPropType';
+import factory from '../factory/factory';
+import checkType from '../utils/checkType';
+import mapObject from '../utils/mapObject';
 
 class ShapeType extends ObjectType {
+  static TYPE_NAME = 'shape';
+  
+  static fromJson(obj) {
+    checkType(obj.type, ShapeType);
+    return new ShapeType(
+      mapObject(obj.shape, (typeJson) => factory.fromJson(typeJson)),
+      obj.required
+    );
+  }
+  
   shape = null;
 
   constructor(shape, required = false) {
@@ -44,6 +57,14 @@ class ShapeType extends ObjectType {
     }
 
     return null;
+  }
+
+  toJson() {
+    return {
+      type: ShapeType.TYPE_NAME,
+      required: this.required(),
+      shape: mapObject(this.shape, (type) => type.toJson()),
+    };
   }
 }
 

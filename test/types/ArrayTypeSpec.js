@@ -45,4 +45,28 @@ describe('ArrayType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new ArrayType(true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'array',
+        required: true,
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = ArrayType.fromJson({
+        type: 'array',
+        required: true,
+      });
+
+      expect(type).to.be.an.instanceof(ArrayType);
+      expect(type.required()).to.be.true;
+    });
+  });
 });

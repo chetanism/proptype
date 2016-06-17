@@ -3,11 +3,21 @@
  */
 
 import AnyType from './AnyType';
-// import _debug from 'debug';
+import checkType from '../utils/checkType';
 
+// import _debug from 'debug';
 // const debug = _debug('InstanceOfType');
 
 class InstanceOfType extends AnyType {
+  static TYPE_NAME = 'instanceOf';
+
+  static fromJson() {
+    throw new Error(
+      'InstanceOfType can not be created from json object.' +
+      ' It requires a class/constructor function to validate the value.'
+    );
+  }
+
   InstanceOf = null;
 
   constructor(InstanceOf, required = false) {
@@ -33,6 +43,10 @@ class InstanceOfType extends AnyType {
     }
 
     return null;
+  }
+
+  toJson() {
+    throw new Error('InstanceOfType can not be serialized to a json object.');
   }
 }
 

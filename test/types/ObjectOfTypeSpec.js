@@ -4,6 +4,7 @@
 
 import '../test-helper/testUtil';
 import ObjectOfType from '../../src/types/ObjectOfType';
+import NumberType from '../../src/types/NumberType';
 import DummyType from '../test-helper/DummyType';
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -68,6 +69,40 @@ describe('ObjectOfType', function () {
       const value = { a: 1, b: null, c: 3 };
       const err = objectOfType.validate(value);
       expect(err).to.be.an.instanceof(Error);
+    });
+  });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new ObjectOfType(new NumberType(true), true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'objectOf',
+        required: true,
+        objectOf: {
+          type: 'number',
+          required: true,
+        }
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = ObjectOfType.fromJson({
+        type: 'objectOf',
+        required: true,
+        objectOf: {
+          type: 'number',
+          required: true,
+        }
+      });
+
+      expect(type).to.be.an.instanceof(ObjectOfType);
+      expect(type.required()).to.be.true;
+      expect(type.objectOf).to.be.an.instanceof(NumberType);
+      expect(type.objectOf.required()).to.be.true;
     });
   });
 });

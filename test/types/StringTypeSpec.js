@@ -45,4 +45,28 @@ describe('StringType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('can serialize type to json object', function () {
+      const type = new StringType(true);
+
+      const json = type.toJson();
+      expect(json).to.be.eql({
+        type: 'string',
+        required: true,
+      });
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('can create type from json', function () {
+      const type = StringType.fromJson({
+        type: 'string',
+        required: true,
+      });
+
+      expect(type).to.be.an.instanceof(StringType);
+      expect(type.required()).to.be.true;
+    });
+  });
 });

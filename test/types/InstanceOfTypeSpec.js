@@ -63,4 +63,24 @@ describe('InstanceOfType', function () {
       expect(err).to.not.exist;
     });
   });
+
+  describe('#toJson', function () {
+    it('throws error', function () {
+      const type = new InstanceOfType(DummyClass);
+      function cantSerialize() {
+        type.toJson();
+      }
+      expect(cantSerialize).to.throw(Error);
+    });
+  });
+
+  describe('.fromJson', function () {
+    it('throws error', function () {
+      function cantCreateFromJson() {
+        InstanceOfType.fromJson({});
+      }
+
+      expect(cantCreateFromJson).to.throw(Error);
+    });
+  });
 });

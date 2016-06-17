@@ -5,6 +5,12 @@
 import PrimitiveType from './PrimitiveType';
 
 class NumberType extends PrimitiveType {
+  static TYPE_NAME = 'number';
+
+  static fromJson(obj) {
+    return PrimitiveType.primitiveFromJson(obj, NumberType);
+  }
+
   constructor(required = false) {
     super('number', required);
   }

@@ -4,8 +4,17 @@
 
 import AnyType from './AnyType';
 import ObjectType from './ObjectType';
+import factory from '../factory/factory';
+import checkType from '../utils/checkType';
 
 class ObjectOfType extends ObjectType {
+  static TYPE_NAME = 'objectOf';
+
+  static fromJson(obj) {
+    checkType(obj.type, ObjectOfType);
+    return new ObjectOfType(factory.fromJson(obj.objectOf), obj.required);
+  }
+
   objectOf = null;
 
   constructor(objectOf, required = false) {
@@ -36,6 +45,14 @@ class ObjectOfType extends ObjectType {
     }
 
     return null;
+  }
+
+  toJson() {
+    return {
+      type: ObjectOfType.TYPE_NAME,
+      required: this.required(),
+      objectOf: this.objectOf.toJson(),
+    };
   }
 }
 
