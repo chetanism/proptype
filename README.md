@@ -49,6 +49,16 @@ const objectPropTypes = PropTypes.shape({
   // => InstanceOfType instance
   // optionalInstanceOf.InstanceOf => SomeClass
   
+  optionalCustom: PropTypes.custom(function myValidator(value) {
+    if (value.isValid()) {
+      return null;
+    }
+    
+    return new Error('Whatever error message');
+  }),
+  // => CustomType instance
+  // optionalCustom.validator => myValidator function
+  
   optionalArrayOfNumbers: PropTypes.arrayOf(PropTypes.number), 
   // ArrayOfType instance
   // optionalArrayOfNumbers.arrayOf => NumberType instance
@@ -105,6 +115,135 @@ let err = requiredType.validate(null); // => Error instance;
 err = requiredType.validate(23); // => null
 err = requiredType.validate('abc'); // => Error instance
 ```
+
+### Supported Type Classes
+Following type classes are exported:
+  a. AnyType
+  b. ArrayType
+  c. BoolType
+  d. FuncType
+  e. NumberType
+  f. ObjectType
+  g. StringType
+  h. SymbolType
+  i. ArrayOfType
+  j. CustomType
+  k. InstanceOfType
+  l. ObjectOfType
+  m. OneOfType
+  n. OneOfTypeType
+  o. ShapeType
+  
+You can import them as:
+
+```javascript
+import { AnyType, ArrayType, ... } from 'proptype';
+```
+### Type instance to json objects
+Each Type except `InstanceOfType` and `CustomType` supports a toJson() method.
+For example:
+
+```javascript
+const myShapeType = new ShapeType({
+ optionalNumber: new NumberType,
+ requiredString: new StringType(true)
+}, true);
+
+// or using PropTypes
+
+const anotherShapeType = PropTypes.shape({
+  optionalNumber: PropTypes.number,
+  requiredString: PropTypes.string.isRequired,
+}).isRequired;
+
+// both these calls
+myShapeType.toJson();
+anotherShapeType.toJson();
+// will result =>
+// {
+//    type: 'shape',
+//    required: true,
+//    shape: {
+//      optionalNumber: {
+//        type: 'number',
+//        required: false
+//      },
+//      requiredString: {
+//        type: 'string',
+//        required: true
+//      }
+//    }
+//  }
+```
+
+### Creating Type instances from json objects
+You can use a json object to create type instance hierarchy.
+For example:
+
+```javascript
+import proptype from 'proptype'
+
+const type = proptype.fromJson({
+  type: 'shape',
+  required: true,
+  shape: {
+    optionalNumber: {
+      type: 'number',
+      required: false
+    },
+    requiredString: {
+      type: 'string',
+      required: true
+    }
+  }
+});
+
+type.validate({ optionalNumber: 2, requiredString: 'abc' }); // => null
+type.validate({ optionalNumber: 2 }); // => Error
+
+### Adding Types
+You can define you own custom types as:
+
+```javascript
+import proptype, { PropTypes, AnyType } from 'proptype';
+
+class MyCustomType extends AnyType {
+  static TYPE_NAME = 'myCustomType';
+  
+  static fromJson(obj) {
+    // create the type instance from obj
+  }
+  
+  constructor(whatever, it, requires, required = false) {
+    super(required);
+    // initialise the type
+  }
+  
+  validate(value) {
+    if (value.isNotValid()) {
+      return new Error('with some message');
+    }
+    
+    // return null for valid values
+    return null;
+  }
+  
+  toJson() {
+    return {
+      type: MyCustomType.TYPE_NAME,
+      required: this.required(),
+      whateverOtherDetails: {}
+    };
+  }
+}
+
+proptype.register(MyCustomType);
+
+const myObjProps = PropTypes.shape({
+  myCustomValue: PropTypes.myCustomType(whatever, it, requires).isRequired
+});
+```
+
 
 ### License
 
