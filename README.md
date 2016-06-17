@@ -213,6 +213,7 @@ class MyCustomType extends AnyType {
   
   static fromJson(obj) {
     // create the type instance from obj
+    return new MyCustomType(obj.whatever, obj.it, obj.requires, obj.required); 
   }
   
   constructor(whatever, it, requires, required = false) {
@@ -233,7 +234,9 @@ class MyCustomType extends AnyType {
     return {
       type: MyCustomType.TYPE_NAME,
       required: this.required(),
-      whateverOtherDetails: {}
+      whatever: 'whatever',
+      it: 'it',
+      requires: 'requires'
     };
   }
 }
